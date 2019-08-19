@@ -7,8 +7,8 @@ require 'fileutils'
 # Find files of a specific extension in the file system...
 
 puts "Provide a file extension"
-print ">> "
-extension = $stdin.gets.chomp
+print ">> ."
+extension = $stdin.gets.chomp.downcase
 path = ENV['HOME'] + '/{Documents,Downloads,Desktop}/**/*.' + extension.to_s
 Dir.glob(path).each do |file|
   p file
@@ -29,7 +29,7 @@ while true
   # If there are files that the user may want to delete...
   puts "Delete these files? [ y / n ]"
   print ">> "
-  queue_request = $stdin.gets.chomp
+  queue_request = $stdin.gets.chomp.downcase
   # If the user doesn't want to queue up the listed files for deletion, this breaks the loop and ends the script.
   # This instant break behavior is a little aggressive...
   if queue_request == "n"
@@ -40,7 +40,7 @@ while true
     puts "Files queued for deletion. Type 'delete' to confirm, or press any key to terminate without deletion"
     puts "* * * This is permanent and cannot be undone. * * *"
     print ">> "
-    commit_to_deletion = $stdin.gets.chomp
+    commit_to_deletion = $stdin.gets.chomp.downcase
     # Fixed - 19 August
     if commit_to_deletion == 'delete'
       queue.each do |remove|
